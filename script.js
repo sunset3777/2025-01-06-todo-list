@@ -20,7 +20,7 @@ function addItem(e){
     <span>${inputText.value}</span>
     </label>
     <a href="#">
-    <i class="fa fa-times"></i>
+    <i class="fa-soild fa-times"></i>
     </a>`
 
     ul .appendChild(li);
