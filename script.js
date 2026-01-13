@@ -1,3 +1,7 @@
+const myDataKey = 'todoListdata'
+let todoData = JSON.parse(localStorage.getItem('myDataKey')) || [];
+
+
 //新增新的待辦事項
 const inputText = document.querySelector('#inputtext input')
 const addButton = document.querySelector('#inputtext a')
@@ -7,27 +11,40 @@ const ul = document.querySelector('#list')
 function addItem(e){
     e.preventDefault();
 
-    if (inputText.value ==='') {
+    if (inputText.value.trim ==='') {
         alert('不能輸入空的待辦事項');
         return;
     }
 
-    const li = document.createElement('li')
+    // const li = document.createElement('li')
 
-    li .innerHTML =
-    `<label class="todoList_label">
-    <input class="todoList_input" type="checkbox" value="true">
-    <span>${inputText.value}</span>
-    </label>
-    <a href="#">
-    <i class="fa-solid fa-times"></i>
-    </a>`
+    // li .innerHTML =
+    // `<label class="todoList_label">
+    // <input class="todoList_input" type="checkbox" value="true">
+    // <span>${inputText.value}</span>
+    // </label>
+    // <a href="#">
+    // <i class="fa-solid fa-times"></i>
+    // </a>`
 
-    ul .appendChild(li);
+    // ul .appendChild(li);
 
-    inputText.value ='';
+    // inputText.value ='';
 
-    console.log('成功加入新待辦事項!');
+    // console.log('成功加入新待辦事項!');
+
+    const item = {
+        content: inputText.value,
+        clecked: false
+    }
+
+    todoData.push(item)
+    
+    saveData(todoData)
+    
+    inputText.value = '';
+
+    console.log('資料已更新，目前陣列長度：', todoData.length);
 }
 
 addButton.addEventListener('click',addItem)
@@ -90,3 +107,15 @@ function filterItems(status) {
         }
     });
 }
+
+//新增localstorage
+
+function saveData(arr) {
+    const dataStr = JSON.stringify(arr)
+    localStorage.setItem('todoListdata', dataStr )
+    localStorage.getItem('todoListdata')
+    
+    console.log ("存入新資料到本地"+ dataStr)
+}
+
+//render渲染 localstorage
